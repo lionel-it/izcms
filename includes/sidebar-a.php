@@ -1,21 +1,26 @@
 <div id="section-navigation">
     <ul class="navi">
-        <li><a href="#">Home</a>
-        <ul class="pages">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Clients</a></li>
-            <li><a href="#">Contact Us</a></li>
-        </ul>
-        </li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Clients</a>
-        <ul class="pages">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Clients</a></li>
-        </ul>
-        </li>
-        <li><a href="#">Contact Us</a></li>
+        <?php
+            // Xac dinh cat_id de to dam link
+            if(isset($_GET['cid']) && filter_var($_GET['cid'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
+                $cid = $_GET['cid'];
+                $pid = NULL;
+            } elseif(isset($_GET['pid']) && filter_var($_GET['pid'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
+                $pid = $_GET['pid'];
+                $cid = NULL;
+            } else {
+                $cid = NULL;
+                $pid = NULL;
+            }
+            // Cau lenh truy xuat categories
+            $q = "SELECT cate_name, cate_id FROM categories ORDER BY position ASC";
+            $r = mysqli_query($dbc, $q);
+             // Lay categories tu csdl
+            while($cats = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+                echo "<li><a href='index.php?cid={$cats['cate_id']}'";
+                    if($cats['cate_id'] == $cid) echo "class='selected'"; 
+                echo ">".$cats['cate_name']. "</a>";
+            }
+        ?>
     </ul>
 </div>

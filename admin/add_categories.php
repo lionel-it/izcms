@@ -47,7 +47,7 @@
                         }
                     ?>
                     </label>
-                    <input type="text" name="category" id="category" value="" size="20" maxlength="150" tabindex="1"/>>
+                    <input type="text" name="category" id="category" value="<?php if(isset($_POST['category'])) echo strip_tags($_POST['category']); ?>" size="20" maxlength="150" tabindex="1"/>>
                 </div>
                 <div>
                     <label for="position">Position: <span class="required">*</span>

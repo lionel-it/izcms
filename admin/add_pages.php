@@ -102,8 +102,14 @@
                     </select>
                 </div>
                 <div>
-                    <label for="page-content">Page Content: <span class="required">*</span></label>
-                    <textarea name="content" cols="50" rows="20"></textarea>
+                    <label for="page-content">Page Content: <span class="required">*</span>
+                        <?php 
+                            if(isset($errors) && in_array('content', $errors)) {
+                                echo "<p class='warning'>Please fill in the content</p>";
+                            }
+                        ?>
+                    </label>
+                    <textarea name="content" cols="50" rows="20"><?php if(isset($_POST['content'])) echo htmlentities($_POST['content'], ENT_COMPAT, 'UTF-8'); ?></textarea>)
                 </div>
             </fieldset>
             <p><input type="submit" name="submit" value="Add Page"></p>
